@@ -11,11 +11,11 @@ spec:
     spec:
       containers:
         - name: modus-monolith
-          image: buiduytung/modus:latest
+          image: buiduytung/modus:0.0.1
           env:
             - name: POSTGRES_DATABASE
               value: postgres
-            - name: POSTGRES_USER
+            - name: POSTGRES_'SER
               valueFrom:
                 secretKeyRef:
                   name: postgres-credentials
