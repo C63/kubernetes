@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: modus-monolith
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: modus-monolith
+    spec:
+      containers:
+        - name: modus-monolith
+          image: buiduytung/modus:latest
+          env:
+            - name: POSTGRES_DATABASE
+              value: postgres
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+          ports:
+            - name: http
+              containerPort: 8080

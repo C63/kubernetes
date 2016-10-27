@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: modus-monolith
+  labels:
+    name: modus-monolith
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 31000
+    name: "http"
+    protocol: TCP
+  selector:
+    app: modus-monolith
