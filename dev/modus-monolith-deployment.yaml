@@ -15,7 +15,7 @@ spec:
           env:
             - name: POSTGRES_DATABASE
               value: postgres
-            - name: POSTGRES_'SER
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: postgres-credentials
