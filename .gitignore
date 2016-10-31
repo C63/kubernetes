@@ -48,3 +48,6 @@ fabric.properties
 .gitignore
 .idea/
 kubernetes.iml
+
+prod/*.txt
+*secret*.yaml

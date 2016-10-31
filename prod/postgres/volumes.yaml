@@ -1,27 +1,27 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pg-data-disk
+  name: postgres-pv
   labels:
-    name: pg-data-disk
+    type: amazonEBS
 spec:
   capacity:
-    storage: 10Gi
+    storage: 5Gi
   accessModes:
     - ReadWriteOnce
-  gcePersistentDisk:
-    pdName: "postgres-database"
-    fsType: "ext4"
+  awsElasticBlockStore:
+    volumeID: vol-08311ff00c8d9b898
+    fsType: ext4
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pg-data-claim
+  name: postgres-pv-claim
   labels:
-    name: pg-data-claim
+    type: amazonEBS
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 5Gi

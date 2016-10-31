@@ -1,39 +1,39 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: database
+  name: postgres
 spec:
   replicas: 1
+  selector:
+    name: postgres
   template:
     metadata:
       labels:
-        app: database
+        name: postgres
+        context: postgres-pv
     spec:
       containers:
         - name: postgres
-          image: postgres
-          resources:
-            limits:
-              cpu: 50m
+          image: docker.io/mdk194/c63-postgres:v1.1
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-pv
+              mountPath: /var/lib/postgresql/data
           env:
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
+                  name: postgres-secret
                   key: username
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
+                  name: postgres-secret
                   key: password
-          ports:
-            - containerPort: 5432
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: pg-data
       volumes:
-        - name: pg-data
+        - name: postgres-pv
           persistentVolumeClaim:
-            claimName: pg-data-claim
+            claimName: postgres-pv-claim

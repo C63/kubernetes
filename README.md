@@ -1,4 +1,5 @@
 # kubernetes
 kubernetes configuration
-DOING:
-- adding postgres deployment
+
+DONE:
+- deployed first version of postgres
